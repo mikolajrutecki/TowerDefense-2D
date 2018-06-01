@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TileScript : MonoBehaviour
+public class TileScript : Singleton<TileScript>
 {
 
 	public Point GridPosition { get; private set; }
 
 	public bool IsEmpty { get; set; }
+
+	private Tower myTower;
 
 	private Color32 fullColor = new Color32(255, 96, 96, 255);
 
@@ -28,6 +30,7 @@ public class TileScript : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		string tileName = GetComponent<SpriteRenderer>().sprite.texture.name;
 	}
 	
 	// Update is called once per frame
@@ -47,19 +50,30 @@ public class TileScript : MonoBehaviour
 
 	private void OnMouseOver()
 	{
-		
-		if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null)
+		string tileName = GetComponent<SpriteRenderer>().sprite.texture.name;
+		if (!EventSystem.current.IsPointerOverGameObject () && (tileName == "path"))
 		{
-			if (IsEmpty)
-			{
-				ColorTile(emptyColor);
+			IsEmpty = false;
+		}
+		if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null) {
+			if (IsEmpty) {
+				ColorTile (emptyColor);
 			} 
-			if (!IsEmpty)
-			{
-				ColorTile(fullColor);
+			if (!IsEmpty) {
+				ColorTile (fullColor);
+			} else if (Input.GetMouseButtonDown (0)) {
+				PlaceTower ();
 			}
-			else if (Input.GetMouseButtonDown(0)) {
-				PlaceTower();
+		} 
+		else if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton == null && Input.GetMouseButtonDown(0))
+		{
+			if (myTower != null)
+			{
+				GameManager.Instance.SelectTower(myTower);
+			}
+			else
+			{
+				GameManager.Instance.DeselectTower();
 			}
 		}
 	}
@@ -71,7 +85,12 @@ public class TileScript : MonoBehaviour
 
 	private void PlaceTower()
 	{
-		Instantiate(GameManager.Instance.ClickedButton.TowerPrefab, transform.position, Quaternion.identity);
+		GameObject tower = (GameObject)Instantiate(GameManager.Instance.ClickedButton.TowerPrefab, transform.position, Quaternion.identity);
+		tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
+
+		tower.transform.SetParent(transform);
+
+		this.myTower = tower.transform.GetChild(0).GetComponent<Tower>();
 
 		ColorTile(Color.white);
 		IsEmpty = false;

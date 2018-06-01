@@ -5,8 +5,11 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
+  defaultReferences:
+  - towerPrefab: {instanceID: 0}
+  - sprite: {instanceID: 0}
+  - priceTxt: {instanceID: 0}
+  executionOrder: 300
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
