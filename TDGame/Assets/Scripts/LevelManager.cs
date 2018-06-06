@@ -54,9 +54,9 @@ public class LevelManager : Singleton<LevelManager> {
 	void Start()
 	{
 		CreateLevel ();
-		CreateGoals ();
-		InvokeRepeating ("SpawnEnemy", spawnDelay, spawnDelay);
-	}
+        CreateGoals();
+        //InvokeRepeating("SpawnEnemy", spawnDelay, spawnDelay);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -119,37 +119,37 @@ public class LevelManager : Singleton<LevelManager> {
 
 		Instantiate(portalPrefab, Tiles[portalSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
 	}
-		
 
-	public void CreateGoals()
-	{
-		waypoints.Add (new Point (0, 0));
-		waypoints.Add (new Point (10, 0));
-		waypoints.Add (new Point (10, 2));
-		waypoints.Add (new Point (1, 2));
-		waypoints.Add (new Point (1, 4));
-		waypoints.Add (new Point (7, 4));
-		waypoints.Add (new Point (7, 6));
-		waypoints.Add (new Point (13, 6));
 
-		goals = new Transform[waypoints.Count];
+    public void CreateGoals()
+    {
+        waypoints.Add(new Point(0, 0));
+        waypoints.Add(new Point(10, 0));
+        waypoints.Add(new Point(10, 2));
+        waypoints.Add(new Point(1, 2));
+        waypoints.Add(new Point(1, 4));
+        waypoints.Add(new Point(7, 4));
+        waypoints.Add(new Point(7, 6));
+        waypoints.Add(new Point(13, 6));
 
-		for (int i = 0; i < waypoints.Count; i++)
-		{
-			go = new GameObject("goal");
-			go = Instantiate(goalPrefab, Tiles [waypoints[i]].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
-			goals[i] = go.transform;
-			//Debug.Log(goals[i].position);
-		}
-	}
+        goals = new Transform[waypoints.Count];
 
-	public void SpawnEnemy()
-	{
-		enemySpawn = new Point(0, 0);
+        for (int i = 0; i < waypoints.Count; i++)
+        {
+            go = new GameObject("goal");
+            go = Instantiate(goalPrefab, Tiles[waypoints[i]].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+            goals[i] = go.transform;
+            //Debug.Log(goals[i].position);
+        }
+    }
 
-		Instantiate (enemyPrefab, Tiles [enemySpawn].GetComponent<TileScript> ().WorldPosition, Quaternion.identity);
+    //public void SpawnEnemy()
+    //{
+    //    enemySpawn = new Point(0, 0);
 
-		return;
-	}
+    //    Instantiate(enemyPrefab, Tiles[enemySpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+
+    //    return;
+    //}
 
 }

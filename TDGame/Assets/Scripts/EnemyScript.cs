@@ -13,9 +13,30 @@ public class EnemyScript : MonoBehaviour {
 
 	[SerializeField]
 	private float health = 100f;
+    
+    public bool Alive
+    {
+        get { return health > 0; }
+    }
+
+    public float Health
+    {
+        get
+        {
+            return health;
+        }
+
+        set
+        {
+            this.health = value;
+        }
+    }
+
 
 	private int waypointIndex = 0;
 	private int amount = 0;
+
+    public bool IsActive { get; set; }
 
 	void Avake()
 	{
@@ -23,6 +44,7 @@ public class EnemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        IsActive = true;
 		amount = LevelManager.Goals.Length;
 		points = new Transform[amount];
 		for (int i = 0; i < amount; i++)
@@ -31,7 +53,7 @@ public class EnemyScript : MonoBehaviour {
 			//Debug.Log (points[i].position);
 		}
 
-		transform.position = points [waypointIndex].transform.position;
+		transform.position = points[waypointIndex].transform.position;
 	}
 
 	
@@ -52,8 +74,32 @@ public class EnemyScript : MonoBehaviour {
 
 		if(waypointIndex == points.Length)
 		{
-			Destroy(gameObject);
+            Release();
+            GameManager.Instance.Lives--;
+            GameManager.Instance.RemoveEnemy(this);
 			return;
 		}
 	}
+
+    private void Release()
+    {
+        IsActive = false;
+        GameManager.Instance.Pool.ReleaseObject(gameObject);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (IsActive)
+        {
+            Health -= damage;
+
+            if(health <= 0)
+            {
+                GameManager.Instance.Currency += 2;
+                IsActive = false;
+                Release();
+                GameManager.Instance.RemoveEnemy(this);
+            }
+        }
+    }
 }
