@@ -13,6 +13,8 @@ public class EnemyScript : MonoBehaviour {
 
 	[SerializeField]
 	private float health = 100f;
+
+    public Image healthBar;
     
     public bool Alive
     {
@@ -32,15 +34,11 @@ public class EnemyScript : MonoBehaviour {
         }
     }
 
-
 	private int waypointIndex = 0;
 	private int amount = 0;
 
     public bool IsActive { get; set; }
 
-	void Avake()
-	{
-	}
 
 	// Use this for initialization
 	void Start () {
@@ -92,6 +90,7 @@ public class EnemyScript : MonoBehaviour {
         if (IsActive)
         {
             Health -= damage;
+            healthBar.fillAmount = health / 100f;
 
             if(health <= 0)
             {

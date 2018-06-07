@@ -69,8 +69,11 @@
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\TileScript.cs" />
-    <Compile Include="Assets\Scripts\Tower.cs" />
     <Compile Include="Assets\Scripts\TowerButton.cs" />
+    <Compile Include="Assets\Scripts\Towers\GreenTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\RedTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\Tower.cs" />
+    <Compile Include="Assets\Scripts\Towers\TowerUpgrade.cs" />
     <None Include="Assets\Resources\Level.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>E:/TowerDefense-2D/TDGame/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

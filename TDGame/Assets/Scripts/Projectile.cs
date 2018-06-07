@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour {
 
     private Tower parent;
 
+    private Element elementType;
+
 	// Use this for initialization
 	void Start () {
         
@@ -22,6 +24,7 @@ public class Projectile : MonoBehaviour {
     {
         this.target = parent.Target;
         this.parent = parent;
+        this.elementType = parent.ElementType;
     }
 
     private void MoveToTarget()
@@ -44,7 +47,6 @@ public class Projectile : MonoBehaviour {
             {
                 target.TakeDamage(parent.Damage);
                 GameManager.Instance.Pool.ReleaseObject(gameObject);
-                Debug.Log("HP MOBA: " + target.Health);
             }
         }
     }

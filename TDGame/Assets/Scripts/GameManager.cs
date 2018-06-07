@@ -36,9 +36,18 @@ public class GameManager : Singleton<GameManager> {
     private GameObject gameOverMenu;
 
     [SerializeField]
+    private GameObject upgradePanel;
+
+    [SerializeField]
+    private Text sellTxt;
+
+    [SerializeField]
+    private Text upgradePrice;
+
+    [SerializeField]
     private GameObject playButton;
     
-    private int wave = 0;
+    private int wave = 1;
 
     [SerializeField]
     private Text waveTxt;
@@ -87,14 +96,15 @@ public class GameManager : Singleton<GameManager> {
     // Use this for initialization
     void Start ()
 	{
-        Lives = 100;
+        Lives = 10;
 		Currency = 5;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		HandleEscape();
-	}
+        waveTxt.text = string.Format("Wave: <color=lime>{0}</color>", wave);
+    }
 
 	public void PickTower(TowerButton towerButton)
 	{
@@ -124,6 +134,9 @@ public class GameManager : Singleton<GameManager> {
 
 		selectedTower = tower;
 		selectedTower.Select();
+
+        sellTxt.text = "<color=lime>+" + (selectedTower.Price / 2).ToString()+"$</color>";
+        upgradePanel.SetActive(true);
 	}
 
 	public void DeselectTower()
@@ -133,8 +146,52 @@ public class GameManager : Singleton<GameManager> {
 			selectedTower.Select();
 		}
 
-		selectedTower = null;
+        upgradePanel.SetActive(false);
+
+        selectedTower = null;
+
 	}
+
+    public void SellTower()
+    {
+        if(selectedTower != null)
+        {
+            Currency += selectedTower.Price / 2;
+
+            selectedTower.GetComponentInParent<TileScript>().IsEmpty = true;
+
+            Destroy(selectedTower.transform.parent.gameObject);
+
+            DeselectTower();
+        }
+    }
+
+    public void UpgradeTower()
+    {
+        if(selectedTower != null)
+        {
+            if(selectedTower.Level <= selectedTower.Upgrades.Length && Currency >= selectedTower.NextUpgrade.Price)
+            {
+                selectedTower.Upgrade();
+            }
+        }
+    }
+
+    public void UpdateUpgradeTip()
+    {
+        if(selectedTower != null)
+        {
+            if (selectedTower.NextUpgrade != null)
+            {
+                upgradePrice.text = "<color=lime>" + selectedTower.NextUpgrade.Price.ToString() + "$</color>";
+            }
+            else
+            {
+                upgradePrice.text = string.Empty;
+            }
+        }
+
+    }
 
 	private void HandleEscape()
 	{
@@ -156,22 +213,21 @@ public class GameManager : Singleton<GameManager> {
     
     public void StartWave()
     {
-        wave++;
-        waveTxt.text = string.Format("Wave: <color=lime>{0}</color>", wave);
         StartCoroutine(SpawnWave());
+        waveTxt.gameObject.SetActive(false);
         playButton.SetActive(false);
     }
 
     private IEnumerator SpawnWave()
     {
-        for(int i = 0; i < wave; i++)
+        for (int i = 0; i < wave; i++)
         {
             string type = "enemy";
             EnemyScript enemy = Pool.GetObject(type).GetComponent<EnemyScript>();
 
             activeEnemies.Add(enemy);
 
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(1f);
         }
 
     }
@@ -182,7 +238,10 @@ public class GameManager : Singleton<GameManager> {
 
         if (!WaveActive)
         {
+            wave++;
             playButton.SetActive(true);
+            waveTxt.gameObject.SetActive(true);
+
         }
     }
 

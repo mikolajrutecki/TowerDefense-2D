@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4556954945789356}
   - component: {fileID: 212749189518496280}
-  - component: {fileID: 114980009925351556}
   - component: {fileID: 58196169649943926}
+  - component: {fileID: 114470872600840300}
   m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
@@ -106,7 +106,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114980009925351556
+--- !u!114 &114470872600840300
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -114,13 +114,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1400173075722380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b31f73c82a1112146895c60ebd35f8bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 11307689c97b04b4d9f70b5522fd6c00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
   attackCooldown: 1
   projectileType: bullet
-  projectileSpeed: 15
+  projectileSpeed: 20
 --- !u!212 &212749189518496280
 SpriteRenderer:
   m_ObjectHideFlags: 1

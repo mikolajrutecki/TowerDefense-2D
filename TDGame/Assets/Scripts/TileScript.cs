@@ -95,6 +95,8 @@ public class TileScript : Singleton<TileScript>
 		ColorTile(Color.white);
 		IsEmpty = false;
 
+        myTower.Price = GameManager.Instance.ClickedButton.Price;
+
 		GameManager.Instance.BuyTower();
 	}
 
