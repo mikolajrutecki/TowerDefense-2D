@@ -135,7 +135,6 @@ public class GameManager : Singleton<GameManager> {
 		selectedTower = tower;
 		selectedTower.Select();
 
-        sellTxt.text = "<color=lime>+" + (selectedTower.Price / 2).ToString()+"$</color>";
         upgradePanel.SetActive(true);
 	}
 
@@ -181,6 +180,7 @@ public class GameManager : Singleton<GameManager> {
     {
         if(selectedTower != null)
         {
+            sellTxt.text = "<color=lime>+" + (selectedTower.Price / 2).ToString() + "$</color>";
             if (selectedTower.NextUpgrade != null)
             {
                 upgradePrice.text = "<color=lime>" + selectedTower.NextUpgrade.Price.ToString() + "$</color>";
