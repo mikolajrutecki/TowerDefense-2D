@@ -14,6 +14,7 @@ public class LevelManager : Singleton<LevelManager> {
 
 	private Point portalSpawn;
 	private Point enemySpawn;
+    private Point baseSpawn;
 
 
 	[SerializeField]
@@ -21,6 +22,9 @@ public class LevelManager : Singleton<LevelManager> {
 
 	[SerializeField]
 	private GameObject portalPrefab;
+
+    [SerializeField]
+    private GameObject basePrefab;
 
 	[SerializeField]
 	private GameObject enemyPrefab;
@@ -90,6 +94,7 @@ public class LevelManager : Singleton<LevelManager> {
 		cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
 
 		SpawnPortal();
+        SpawnBase();
 	}
 
 	private Vector3 PlaceTile(string tileType, int x, int y, Vector3 worldStart)
@@ -119,6 +124,13 @@ public class LevelManager : Singleton<LevelManager> {
 
 		Instantiate(portalPrefab, Tiles[portalSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
 	}
+
+    private void SpawnBase()
+    {
+        baseSpawn = new Point(13, 6);
+
+        Instantiate(basePrefab, Tiles[baseSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+    }
 
 
     public void CreateGoals()

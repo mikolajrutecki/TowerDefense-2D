@@ -2518,6 +2518,7 @@ MonoBehaviour:
   map: {fileID: 551973118}
   portalPrefab: {fileID: 1374430210672638, guid: f19728d69256aaf49946df9c2ecb7538,
     type: 2}
+  basePrefab: {fileID: 1316546542249116, guid: 51ca9ffb4c504d545bb33d9738c24a05, type: 2}
   enemyPrefab: {fileID: 1024449181057412, guid: ec636398a8725b44889f1e43bc4733e9,
     type: 2}
   spawnDelay: 3
