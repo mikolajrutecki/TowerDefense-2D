@@ -96,13 +96,18 @@ public class GameManager : Singleton<GameManager> {
     // Use this for initialization
     void Start ()
 	{
-        Lives = 10;
+        Lives = 1;
 		Currency = 5;
     }
 	
 	// Update is called once per frame
 	void Update () {
 		HandleEscape();
+        if (gameOver)
+        {
+            waveTxt.gameObject.SetActive(false);
+            playButton.SetActive(false);
+        }
         waveTxt.text = string.Format("Wave: <color=lime>{0}</color>", wave);
     }
 

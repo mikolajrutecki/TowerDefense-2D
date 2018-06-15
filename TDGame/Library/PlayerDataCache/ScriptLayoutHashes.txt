@@ -1,10 +1,10 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/Mikolaj/Desktop/TEST/TEST.exe
+C:/Users/Mikolaj/Desktop/Tower Defense v0.1/Tower Defense v0.1.exe
 SceneListBegin?
 Assets/scene.unity
 SceneListEnd?
-be4e3f80b67aad83f4f14514961d08b5 Assembly-CSharp.dll:.LevelManager
+d36c3e1d3e272a473c56b5ec1034bc2a Assembly-CSharp.dll:.LevelManager
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cf455f7a806648c6ed4c7d3e3f8a0e03 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 13bdb7c23815c33a33b37b0ba8dd39be UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
